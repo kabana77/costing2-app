@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             MstMesinSeeder::class,
             MstProdukSeeder::class,
+            CostingSeeder::class,
         ]);
         
 
