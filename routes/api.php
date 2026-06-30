@@ -16,15 +16,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    // --- Master Data ---
-    Route::prefix('master')->group(function () {
-        Route::get('mesin',      [CostingController::class, 'getMesin']);      // GET /api/master/mesin
-        Route::get('mesin/{mesin}', [CostingController::class, 'getMesinById']); // GET /api/master/mesin/{id}
-    });
+    // // --- Master Data ---
+    // Route::prefix('master')->group(function () {
+    //     Route::get('mesin',      [CostingController::class, 'getMesin']);      // GET /api/master/mesin
+    //     Route::get('mesin/{mesin}', [CostingController::class, 'getMesinById']); // GET /api/master/mesin/{id}
+    // });
 
-    // --- Costing Transaksi ---
-    Route::prefix('costing')->group(function () {
-        Route::post('calculate', [CostingController::class, 'calculate']); // POST /api/costing/calculate
-        Route::get('history',    [CostingController::class, 'history']);   // GET  /api/costing/history
-    });
+    // // --- Costing Transaksi ---
+    // Route::prefix('costing')->group(function () {
+    //     Route::post('calculate', [CostingController::class, 'calculate']); // POST /api/costing/calculate
+    //     Route::get('history',    [CostingController::class, 'history']);   // GET  /api/costing/history
+    // });
 });

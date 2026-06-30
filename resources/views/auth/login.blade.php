@@ -5,21 +5,21 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        {{-- Nomor WhatsApp --}}
+        {{-- Nomor WhatsApp / Username --}}
         <div>
-            <x-input-label for="nomor_wa" :value="__('Nomor WhatsApp')" />
+            <x-input-label for="username" :value="__('Nomor WhatsApp / Username')" />
             <x-text-input
-                id="nomor_wa"
+                id="username"
                 class="block mt-1 w-full"
                 type="text"
-                name="nomor_wa"
-                :value="old('nomor_wa')"
+                name="username"
+                :value="old('username', old('nomor_wa'))"
                 placeholder="Contoh: 08123456789"
                 required
                 autofocus
-                autocomplete="tel"
+                autocomplete="username"
             />
-            <x-input-error :messages="$errors->get('nomor_wa')" class="mt-2" />
+            <x-input-error :messages="$errors->get('username')" class="mt-2" />
         </div>
 
         {{-- Password --}}

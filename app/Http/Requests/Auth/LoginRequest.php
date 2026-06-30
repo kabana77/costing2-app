@@ -19,7 +19,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nomor_wa' => ['required', 'string', 'regex:/^08[0-9]{8,11}$/'],
+            'username' => ['nullable', 'string'],
+            'nomor_wa' => ['nullable', 'string', 'regex:/^08[0-9]{8,11}$/'],
             'password' => ['required', 'string'],
         ];
     }
@@ -27,7 +28,7 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nomor_wa.required' => 'Nomor WhatsApp wajib diisi.',
+            'username.required' => 'Nomor WhatsApp atau username wajib diisi.',
             'nomor_wa.regex'    => 'Format nomor WA tidak valid. Contoh: 08123456789',
             'password.required' => 'Password wajib diisi.',
         ];
@@ -38,7 +39,7 @@ class LoginRequest extends FormRequest
         $this->ensureIsNotRateLimited();
 
         if (! Auth::attempt(
-            $this->only('nomor_wa', 'password'),
+            $this->credentials(),
             $this->boolean('remember')
         )) {
             RateLimiter::hit($this->throttleKey());
@@ -49,6 +50,16 @@ class LoginRequest extends FormRequest
         }
 
         RateLimiter::clear($this->throttleKey());
+    }
+
+    protected function credentials(): array
+    {
+        $username = $this->input('username', $this->input('nomor_wa'));
+
+        return [
+            'nomor_wa' => $username,
+            'password' => $this->input('password'),
+        ];
     }
 
     public function ensureIsNotRateLimited(): void
@@ -71,8 +82,10 @@ class LoginRequest extends FormRequest
 
     public function throttleKey(): string
     {
+        $username = $this->input('username', $this->input('nomor_wa'));
+
         return Str::transliterate(
-            Str::lower($this->string('nomor_wa')) . '|' . $this->ip()
+            Str::lower((string) $username) . '|' . $this->ip()
         );
     }
 }
