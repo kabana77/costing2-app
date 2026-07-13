@@ -6,6 +6,7 @@ use App\Http\Requests\StoreMesinRequest;
 use App\Models\MstMesin;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class MasterMesinController extends Controller
 {
@@ -13,13 +14,21 @@ class MasterMesinController extends Controller
      * GET /api/master-crud/mesin
      * Daftar lengkap mesin untuk tabel di halaman master.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $mesin = MstMesin::orderBy('kode_mesin')->get();
+        $perPage = (int) $request->input('per_page', 15);
+
+        $data = MstMesin::orderBy('kode_mesin')->paginate($perPage);
 
         return response()->json([
             'status' => 'success',
-            'data'   => $mesin,
+            'data'   => $data->items(),
+            'meta'   => [
+                'current_page' => $data->currentPage(),
+                'last_page'    => $data->lastPage(),
+                'per_page'     => $data->perPage(),
+                'total'        => $data->total(),
+            ],
         ]);
     }
 

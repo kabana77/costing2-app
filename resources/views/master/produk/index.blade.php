@@ -38,6 +38,13 @@
                 </tbody>
             </table>
         </div>
+        
+        {{-- Pagination --}}
+        <div id="pagination-wrap"
+             class="flex items-center justify-between px-4 py-3 border-t border-gray-100">
+            <span id="pagination-info" class="text-xs text-gray-400"></span>
+            <div id="pagination-btns" class="flex gap-1"></div>
+        </div>
     </div>
 </div>
 
@@ -121,6 +128,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     let deleteTargetKode = null;
 
+    // pagination state
+    let state = {
+        page: 1,
+        perPage: 20,
+    };
+
     function apiHeaders(extra) {
         return Object.assign({
             'Accept':       'application/json',
@@ -168,9 +181,15 @@ document.addEventListener('DOMContentLoaded', function () {
     async function fetchList() {
         const tbody = document.getElementById('tabel-body');
         try {
-            const res  = await fetch('/api/master-crud/produk', { headers: apiHeaders() });
+            const params = new URLSearchParams();
+            params.set('page', state.page);
+            params.set('per_page', state.perPage);
+
+            const res  = await fetch('/api/master-crud/produk?' + params.toString(), { headers: apiHeaders() });
             const json = await res.json();
+
             renderTabel(json.data || []);
+            renderPagination(json.meta || {});
         } catch (e) {
             tbody.innerHTML = '<tr><td colspan="4" class="px-4 py-10 text-center text-red-400">Gagal memuat data.</td></tr>';
         }
@@ -204,6 +223,56 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.btn-delete').forEach(function (btn) {
             btn.addEventListener('click', function () { openDeleteModal(this.dataset.kode); });
         });
+    }
+
+    // pagination renderer (copied/adapted from history page)
+    function renderPagination(meta) {
+        const info  = document.getElementById('pagination-info');
+        const wrap  = document.getElementById('pagination-btns');
+        const total = document.getElementById('pagination-info');
+
+        total.textContent = 'Total ' + (meta.total || 0) + ' data';
+        info.textContent  = 'Halaman ' + (meta.current_page || 1) + ' dari ' + (meta.last_page || 1);
+
+        wrap.innerHTML = '';
+        if (!meta.last_page || meta.last_page <= 1) return;
+
+        const btnClass = 'border border-gray-200 rounded-lg px-3 py-1 text-xs cursor-pointer transition ';
+
+        // Prev
+        const prev = document.createElement('button');
+        prev.textContent = '← Prev';
+        prev.className   = btnClass + (meta.current_page <= 1 ? 'opacity-40 cursor-not-allowed bg-gray-50 text-gray-400' : 'hover:bg-gray-50 text-gray-600');
+        prev.disabled    = meta.current_page <= 1;
+        prev.addEventListener('click', function () {
+            if (state.page > 1) { state.page--; fetchList(); }
+        });
+        wrap.appendChild(prev);
+
+        const start = Math.max(1, meta.current_page - 2);
+        const end   = Math.min(meta.last_page, meta.current_page + 2);
+
+        for (let i = start; i <= end; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = i;
+            btn.className   = btnClass + (i === meta.current_page
+                ? 'bg-indigo-600 text-white border-indigo-600'
+                : 'hover:bg-gray-50 text-gray-600');
+            btn.addEventListener('click', (function (page) {
+                return function () { state.page = page; fetchList(); };
+            }(i)));
+            wrap.appendChild(btn);
+        }
+
+        // Next
+        const next = document.createElement('button');
+        next.textContent = 'Next →';
+        next.className   = btnClass + (meta.current_page >= meta.last_page ? 'opacity-40 cursor-not-allowed bg-gray-50 text-gray-400' : 'hover:bg-gray-50 text-gray-600');
+        next.disabled    = meta.current_page >= meta.last_page;
+        next.addEventListener('click', function () {
+            if (state.page < meta.last_page) { state.page++; fetchList(); }
+        });
+        wrap.appendChild(next);
     }
 
     // =========================================================

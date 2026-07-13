@@ -17,6 +17,45 @@
 
     {{-- ===== FILTER BAR ===== --}}
     <div class="bg-white rounded-xl border border-gray-200 p-4">
+
+        <div class="flex flex-wrap -mx-3 mb-2">
+            <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+                <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                    Tanggal Awal
+                    <span id="rpm-auto-label" class="ml-1 hidden text-xs text-indigo-500">(dari master)</span></label>
+                <input type="date" id="filter-tgl-start"
+                        min="0.01" step="0.01" placeholder="Opsional"
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" />
+            </div>
+            <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+                <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">Tanggal Akhir</label>
+                <input type="date" id="filter-tgl-end" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                <p id="err-jumlah_mesin" class="field-error mt-1 hidden text-xs text-red-500"></p>
+            </div>
+            <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+                <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">Kode Produksi</label>
+                <select id="filter-kode"
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="">Semua</option>
+                </select>
+            </div>
+            <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">Efisiensi (%) <span class="text-red-400">*</span></label>
+                <input type="number" id="efisiensi" name="efisiensi" min="0" max="100" step="0.01" value="80" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                <p id="err-efisiensi" class="field-error mt-1 hidden text-xs text-red-500"></p>
+            </div>
+            <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">Jam kerja <span class="text-red-400">*</span></label>
+                <input type="number" id="jam_kerja" name="jam_kerja" min="0.01" max="24" step="0.01" value="24" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                <p id="err-jam_kerja" class="field-error mt-1 hidden text-xs text-red-500"></p>
+            </div>
+            <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">Efisiensi (%) <span class="text-red-400">*</span></label>
+                <input type="number" id="efisiensi" name="efisiensi" min="0" max="100" step="0.01" value="80" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                <p id="err-efisiensi" class="field-error mt-1 hidden text-xs text-red-500"></p>
+            </div>
+        </div>
+
         <div class="flex flex-wrap gap-3 items-end">
 
             <div class="flex flex-col gap-1">
@@ -52,20 +91,21 @@
             </div>
 
             <button id="btn-filter"
-                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium
-                           px-4 py-2 rounded-lg text-sm transition">
+                    class="mt-4 border border-gray-200 hover:bg-gray-50 text-gray-600
+                           font-medium px-4 py-2 rounded-lg text-sm transition">
                 Terapkan
             </button>
 
             <button id="btn-reset"
-                    class="border border-gray-200 hover:bg-gray-50 text-gray-600
+                    class="mt-4 border border-gray-200 hover:bg-gray-50 text-gray-600
                            font-medium px-4 py-2 rounded-lg text-sm transition">
                 Reset
             </button>
 
             {{-- Tombol export — selalu di paling kanan, terpisah dari grup filter --}}
             <button id="btn-export"
-                    class="ml-auto bg-emerald-600 hover:bg-emerald-700 text-white font-medium
+                    class="mt-4 border border-gray-200 hover:bg-gray-50 text-gray-600
+                           font-medium px-4 py-2 ml-auto bg-emerald-600 hover:bg-emerald-700 font-medium
                            px-4 py-2 rounded-lg text-sm transition flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

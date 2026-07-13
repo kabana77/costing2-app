@@ -27,7 +27,7 @@ use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('costing.input');
+    return redirect()->route('costing.history');
 });
 
 require __DIR__.'/auth.php';

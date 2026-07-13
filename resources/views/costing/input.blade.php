@@ -6,7 +6,8 @@
 
 {{-- card pembukus form dengan ukuran setara col-6 pada bootstrap --}}
 <div class="">
-    <form class="mx-auto max-w-5xl space-y-6 rounded-lg border border-gray-700 bg-white p-6 shadow-sm">
+
+    <form class="w-full max-w-lg space-y-6 rounded-lg border border-gray-700 bg-white px-6 shadow-sm">
         {{-- ===== ALERT ERROR GLOBAL ===== --}}
         <div id="alert-global" class="hidden items-start gap-3 rounded-2xl border border-red-200 bg-red-50/95 px-4 py-3 text-sm text-red-700 shadow-sm">
             <svg class="mt-0.5 h-4 w-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -16,210 +17,200 @@
         </div>
 
         {{-- ===== CARD 1: IDENTITAS PRODUKSI ===== --}}
-        <div class="rounded-lg border-none bg-white p-5 shadow-sm">
-            <div class="mb-4 flex items-center gap-2">
-                <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 7V3m8 4V3M4 11h16M6 5h12a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2z"/>
-                    </svg>
-                </div>
-                <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Identitas Produksi</h2>
-            </div>
-            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">
-                        Tanggal produksi <span class="text-red-400">*</span>
-                    </label>
-                    <!-- <input type="date" id="tanggal" name="tanggal" class="field-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200" /> -->
-                    <input type="date" id="tanggal" name="tanggal" class="field-input mt-1 block w-full">
-                    <p id="err-tanggal" class="field-error mt-1 hidden text-xs text-red-500"></p>
-                </div>
-
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">
-                        Kode produksi <span class="text-red-400">*</span>
-                    </label>
-                    <select id="kode_produksi" name="kode_produksi"
-                            class="field-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200">
-                        <option value="">— Pilih kode produksi —</option>
-                        @foreach($produkList as $produk)
-                            <option value="{{ $produk->kode_produksi }}">
-                                {{ $produk->kode_produksi }} — {{ $produk->konstruksi }}
-                            </option>
-                        @endforeach
-                    </select>
-                    <p id="err-kode_produksi" class="field-error mt-1 hidden text-xs text-red-500"></p>
-                </div>
-
-            </div>
-        </div>
-
-        {{-- ===== CARD 2: PARAMETER MESIN ===== --}}
-        <div class="rounded-lg border-none bg-white p-5 shadow-sm">
-            <div class="mb-4 flex items-center gap-2">
-                <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                </div>
-                <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Parameter Mesin</h2>
-            </div>
-
-            <div class="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
-
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">Mesin <span class="text-red-400">*</span></label>
-                    <select id="id_mesin" name="id_mesin"
-                            class="field-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200">
-                        <option value="">— Memuat mesin... —</option>
-                    </select>
-                    <p id="err-id_mesin" class="field-error mt-1 hidden text-xs text-red-500"></p>
-                </div>
-
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">
-                        RPM aktual
-                        <span id="rpm-auto-label" class="ml-1 hidden text-xs text-indigo-500">(dari master)</span>
-                    </label>
-                    <input type="number" id="rpm_aktual" name="rpm_aktual"
-                        min="0.01" step="0.01" placeholder="Opsional"
-                        class="field-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200" />
-                    <p class="mt-1 text-xs text-slate-400">Kosongkan untuk pakai rpm default</p>
-                </div>
-
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">Jumlah mesin <span class="text-red-400">*</span></label>
-                    <input type="number" id="jumlah_mesin" name="jumlah_mesin"
-                        min="1" step="1" value="1"
-                        class="field-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200" />
-                    <p id="err-jumlah_mesin" class="field-error mt-1 hidden text-xs text-red-500"></p>
-                </div>
-
-            </div>
-
-            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">Jam kerja <span class="text-red-400">*</span></label>
-                    <input type="number" id="jam_kerja" name="jam_kerja"
-                        min="0.01" max="24" step="0.01" value="24"
-                        class="field-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200" />
-                    <p id="err-jam_kerja" class="field-error mt-1 hidden text-xs text-red-500"></p>
-                </div>
-
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">Efisiensi (%) <span class="text-red-400">*</span></label>
-                    <div class="relative">
-                        <input type="number" id="efisiensi" name="efisiensi"
-                            min="0" max="100" step="0.01" value="80"
-                            class="field-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 pr-8 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200" />
-                        <span class="absolute right-3 top-2.5 text-xs text-slate-400">%</span>
-                    </div>
-                    <p id="err-efisiensi" class="field-error mt-1 hidden text-xs text-red-500"></p>
-                </div>
-
-            </div>
-        </div>
-
-        {{-- ===== CARD 3: PARAMETER KAIN ===== --}}
-        <div class="rounded-lg border-none bg-white p-5 shadow-sm">
-            <div class="mb-4 flex items-center gap-2">
-                <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 7h16M7 11h10M9 15h6"/>
-                    </svg>
-                </div>
-                <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Parameter Kain</h2>
-            </div>
-            <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
-
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">Slah / sisir (helai/inch) <span class="text-red-400">*</span></label>
-                    <input type="number" id="slah_sisir" name="slah_sisir"
-                        min="1" step="1"
-                        class="field-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200" />
-                    <p id="err-slah_sisir" class="field-error mt-1 hidden text-xs text-red-500"></p>
-                </div>
-
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">Pick / pakan (helai/inch) <span class="text-red-400">*</span></label>
-                    <input type="number" id="pick" name="pick"
-                        min="1" step="1"
-                        class="field-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200" />
-                    <p id="err-pick" class="field-error mt-1 hidden text-xs text-red-500"></p>
-                </div>
-
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">Panjang pcs (cm) <span class="text-red-400">*</span></label>
-                    <input type="number" id="panjang_pcs" name="panjang_pcs"
-                        min="0.01" step="0.01"
-                        class="field-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200" />
-                    <p id="err-panjang_pcs" class="field-error mt-1 hidden text-xs text-red-500"></p>
-                </div>
-
-            </div>
-        </div>
-
-        {{-- ===== CARD 4: KOMPONEN BIAYA ===== --}}
-        <div class="rounded-lg border-none bg-white p-5 shadow-sm">
-            <div class="mb-4 flex items-center gap-2">
-                <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="mb-4 flex items-center gap-2">
+            <div class="flex items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
-                </div>
-                <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Komponen Biaya Harian (Rp)</h2>
             </div>
-            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-5">
+            <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Identitas Produksi</h2>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                    Tanggal Produksi
+                </label>
+                <input type="date" id="tanggal" name="tanggal" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <p id="err-tanggal" class="field-error mt-1 hidden text-xs text-red-500"></p>
+            </div>
+            <div class="w-full md:w-1/2 px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                    Kode Produksi
+                </label>
 
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">Upah operator</label>
-                    <input type="number" id="biaya_upah_operator" data-biaya="upah_operator"
+                <select id="kode_produksi" name="kode_produksi" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="">— Pilih kode produksi —</option>
+                    @foreach($produkList as $produk)
+                        <option value="{{ $produk->kode_produksi }}">
+                            {{ $produk->kode_produksi }} — {{ $produk->konstruksi }}
+                        </option>
+                    @endforeach
+                </select>
+                <p id="err-kode_produksi" class="field-error mt-1 hidden text-xs text-red-500"></p>
+            </div>
+        </div>
+        <hr>
+
+        {{-- ===== CARD 2: PARAMETER MESIN ===== --}}
+        <div class="mb-4 flex items-center gap-2">
+            <div class="flex items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </div>
+            <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Parameter Mesin</h2>
+        </div>
+        
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                    Mesin <span class="text-red-400">*</span>
+                </label>
+                <select id="id_mesin" name="id_mesin" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="">— Memuat mesin... —</option>
+                </select>
+                <p id="err-id_mesin" class="field-error mt-1 hidden text-xs text-red-500"></p>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap -mx-3 mb-2">
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                    RPM aktual
+                    <span id="rpm-auto-label" class="ml-1 hidden text-xs text-indigo-500">(dari master)</span></label>
+                <input type="number" id="rpm_aktual" name="rpm_aktual"
+                        min="0.01" step="0.01" placeholder="Opsional"
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" />
+                <p class="mt-1 text-xs text-slate-400">Kosongkan untuk pakai rpm default</p>
+            </div>
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">Jumlah mesin <span class="text-red-400">*</span></label>
+                <input type="number" id="jumlah_mesin" name="jumlah_mesin" min="1" step="1" value="1" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                <p id="err-jumlah_mesin" class="field-error mt-1 hidden text-xs text-red-500"></p>
+            </div>
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">Jam kerja <span class="text-red-400">*</span></label>
+                <input type="number" id="jam_kerja" name="jam_kerja" min="0.01" max="24" step="0.01" value="24" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                <p id="err-jam_kerja" class="field-error mt-1 hidden text-xs text-red-500"></p>
+            </div>
+            <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">Efisiensi (%) <span class="text-red-400">*</span></label>
+                <input type="number" id="efisiensi" name="efisiensi" min="0" max="100" step="0.01" value="80" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                <p id="err-efisiensi" class="field-error mt-1 hidden text-xs text-red-500"></p>
+
+                
+            </div>
+        </div>
+        <hr>
+        
+        {{-- ===== CARD 3: PARAMETER KAIN ===== --}}
+        <div class="mb-4 flex items-center gap-2">
+            <div class="flex items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 7h16M7 11h10M9 15h6"/>
+                </svg>
+            </div>
+            <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Parameter Kain</h2>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-2">
+            
+
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                    Slah / sisir (helai/inch) <span class="text-red-400">*</span>
+                </label>
+                <input type="number" id="slah_sisir" name="slah_sisir" min="1" step="1"
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                <p id="err-slah_sisir" class="field-error mt-1 hidden text-xs text-red-500"></p>
+            </div>
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
+                    Pick / pakan (helai/inch) <span class="text-red-400">*</span>
+                </label>
+                
+                <input type="number" id="pick" name="pick" min="1" step="1" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                <p id="err-pick" class="field-error mt-1 hidden text-xs text-red-500"></p>
+            </div>
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                    Panjang pcs (cm) <span class="text-red-400">*</span>
+                </label>
+                <input type="number" id="panjang_pcs" name="panjang_pcs" min="0.01" max="100" step="0.01" value="100" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+                <p id="err-panjang_pcs" class="field-error mt-1 hidden text-xs text-red-500"></p>
+            </div>
+
+        </div>
+        <hr>
+
+        <div class="mb-4 flex items-center gap-2">
+            <div class="flex items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 7V3m8 4V3M4 11h16M6 5h12a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2z"/>
+                </svg>
+            </div>
+            <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Komponen Biaya Harian (Rp)</h2>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-2">
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
+                    Upah operator
+                </label>
+                <input type="number" id="biaya_upah_operator" data-biaya="upah_operator"
                         min="0" step="1000" value="0"
-                        class="biaya-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200" />
-                </div>
+                        class="biaya-input appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
 
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">Listrik mesin</label>
-                    <input type="number" id="biaya_listrik_mesin" data-biaya="listrik_mesin"
+            </div>
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                    Listrik mesin
+                </label>
+                <input type="number" id="biaya_listrik_mesin" data-biaya="listrik_mesin"
                         min="0" step="1000" value="0"
-                        class="biaya-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200" />
-                </div>
+                        class="biaya-input appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+            </div>
 
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">Maintenance</label>
-                    <input type="number" id="biaya_maintenance" data-biaya="maintenance"
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                    Maintenance
+                </label>
+                <input type="number" id="biaya_maintenance" data-biaya="maintenance"
                         min="0" step="1000" value="0"
-                        class="biaya-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200" />
-                </div>
+                        class="biaya-input appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
+            </div>
+        </div>
 
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">Penyusutan</label>
+        <div class="flex flex-wrap -mx-3 mb-2">
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                    Penyusutan
+                </label>
                     <input type="number" id="biaya_penyusutan_mesin" data-biaya="penyusutan_mesin"
                         min="0" step="1000" value="0"
-                        class="biaya-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200" />
-                </div>
+                        class="biaya-input appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
 
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-slate-600">Biaya lain</label>
-                    <input type="number" id="biaya_biaya_lain" data-biaya="biaya_lain"
-                        min="0" step="1000" value="0"
-                        class="biaya-input w-full rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-700 shadow-sm shadow-slate-100/70 transition focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-200" />
-                </div>
 
             </div>
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
+                    Biaya Lain
+                </label>
+                <input type="number" id="biaya_biaya_lain" data-biaya="biaya_lain"
+                        min="0" step="1000" value="0"
+                        class="biaya-input appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
 
-            <div class="mt-4 flex items-center justify-between rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-slate-50 px-4 py-3">
-                <span class="text-sm text-slate-500">Total biaya harian</span>
+            </div>
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                    Total Biaya Harian
+                </label>
                 <span id="total-biaya" class="text-sm font-semibold text-slate-800">Rp 0</span>
             </div>
         </div>
 
-        {{-- ===== TOMBOL SUBMIT ===== --}}
+        {{-- tombol submit --}}
         <div class="flex justify-center px-1 pt-1 sm:px-0">
             <button id="btn-submit" type="button"
-                    class="flex w-full max-w-xl items-center justify-center gap-2.5 rounded-2xl border border-indigo-500/20 bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3.5 text-base font-semibold text-dark shadow-[0_12px_30px_-12px_rgba(79,70,229,0.65)] transition hover:translate-y-[-1px] hover:from-indigo-700 hover:to-violet-700 disabled:cursor-not-allowed disabled:opacity-80 sm:w-auto sm:min-w-[240px] sm:px-6">
+                    class="flex w-full max-w-xl items-center justify-center gap-2.5 rounded-2xl border border-indigo-500/20 bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3.5 text-base font-semibold text-dark shadow-[0_12px_30px_-12px_rgba(79,70,229,0.65)] transition hover:translate-y-[-1px] hover:from-indigo-700 hover:to-violet-700 disabled:cursor-not-allowed disabled:opacity-80 sm:w-auto sm:min-w-[240px] sm:px-6 mb-4">
                 <svg id="btn-icon-calc" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01
@@ -231,9 +222,9 @@
                 </svg>
                 <span id="btn-label" class="text-content">Hitung &amp; Simpan</span>
             </button>
+            
         </div>
 
-        {{-- ===== CARD HASIL KALKULASI ===== --}}
         <div id="card-hasil" class="hidden rounded-lg border border-emerald-200 bg-emerald-50 p-5 shadow-sm">
             <h2 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">Hasil Kalkulasi</h2>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -259,8 +250,10 @@
                 <a href="{{ route('costing.history') }}" class="text-indigo-500 underline">Lihat di riwayat</a>
             </p>
         </div>
-
+        
     </form>
+
+    
 </div>
 {{-- ===== SCRIPT — langsung di dalam section, bukan @push ===== --}}
 <script>

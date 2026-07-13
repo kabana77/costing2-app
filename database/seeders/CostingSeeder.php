@@ -16,8 +16,9 @@ class CostingSeeder extends Seeder
         $mesinRpr = MstMesin::where('kode_mesin', 'RPR')->firstOrFail();
         $mesinAjl = MstMesin::where('kode_mesin', 'AJL')->firstOrFail();
 
-        $produkP046 = MstProduk::where('kode_produksi', 'P046')->firstOrFail();
-        $produkP031 = MstProduk::where('kode_produksi', 'P031')->firstOrFail();
+        // Try several variants so the seeder works with either dotted or non-dotted codes
+        $produkP046 = MstProduk::whereIn('kode_produksi', ['P046', 'P.46'])->firstOrFail();
+        $produkP031 = MstProduk::whereIn('kode_produksi', ['P031', 'P.31', 'P.03'])->firstOrFail();
 
         $service->calculate([
             'tanggal'       => now()->subDays(1)->toDateString(),

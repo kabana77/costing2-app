@@ -6,19 +6,28 @@ use App\Http\Requests\StoreProdukRequest;
 use App\Models\MstProduk;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class MasterProdukController extends Controller
 {
     /**
      * GET /api/master-crud/produk
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $produk = MstProduk::orderBy('kode_produksi')->get();
+        $perPage = (int) $request->input('per_page', 15);
+
+        $data = MstProduk::orderBy('kode_produksi')->paginate($perPage);
 
         return response()->json([
             'status' => 'success',
-            'data'   => $produk,
+            'data'   => $data->items(),
+            'meta'   => [
+                'current_page' => $data->currentPage(),
+                'last_page'    => $data->lastPage(),
+                'per_page'     => $data->perPage(),
+                'total'        => $data->total(),
+            ],
         ]);
     }
 
