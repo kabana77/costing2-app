@@ -19,7 +19,7 @@
     <div class="bg-white rounded-xl border border-gray-200 p-4">
 
         <div class="flex flex-wrap -mx-3 mb-2">
-            <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-1/6 md:mb-0">
                 <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
                     Tanggal Awal
                     <span id="rpm-auto-label" class="ml-1 hidden text-xs text-indigo-500">(dari master)</span></label>
@@ -27,78 +27,38 @@
                         min="0.01" step="0.01" placeholder="Opsional"
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" />
             </div>
-            <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-1/6 px-3 d:mb-0">
                 <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">Tanggal Akhir</label>
                 <input type="date" id="filter-tgl-end" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                 <p id="err-jumlah_mesin" class="field-error mt-1 hidden text-xs text-red-500"></p>
             </div>
-            <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-1/6 px-3 md:mb-0">
                 <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">Kode Produksi</label>
                 <select id="filter-kode"
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="">Semua</option>
                 </select>
             </div>
-            <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">Efisiensi (%) <span class="text-red-400">*</span></label>
-                <input type="number" id="efisiensi" name="efisiensi" min="0" max="100" step="0.01" value="80" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-                <p id="err-efisiensi" class="field-error mt-1 hidden text-xs text-red-500"></p>
-            </div>
-            <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">Jam kerja <span class="text-red-400">*</span></label>
-                <input type="number" id="jam_kerja" name="jam_kerja" min="0.01" max="24" step="0.01" value="24" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-                <p id="err-jam_kerja" class="field-error mt-1 hidden text-xs text-red-500"></p>
-            </div>
-            <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">Efisiensi (%) <span class="text-red-400">*</span></label>
-                <input type="number" id="efisiensi" name="efisiensi" min="0" max="100" step="0.01" value="80" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-                <p id="err-efisiensi" class="field-error mt-1 hidden text-xs text-red-500"></p>
+            <div class="w-full md:w-1/6 px-3 md:mb-0">
+                <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">Mesin</label>
+                <select id="filter-mesin"
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="">Semua</option>
+                </select>
             </div>
         </div>
 
+        
+
         <div class="flex flex-wrap gap-3 items-end">
 
-            <div class="flex flex-col gap-1">
-                <label class="text-xs text-gray-500">Tanggal mulai</label>
-                <input type="date" id="filter-tgl-start"
-                       class="border border-gray-200 rounded-lg px-3 py-2 text-sm
-                              focus:outline-none focus:ring-2 focus:ring-indigo-300" />
-            </div>
+            
 
-            <div class="flex flex-col gap-1">
-                <label class="text-xs text-gray-500">Tanggal akhir</label>
-                <input type="date" id="filter-tgl-end"
-                       class="border border-gray-200 rounded-lg px-3 py-2 text-sm
-                              focus:outline-none focus:ring-2 focus:ring-indigo-300" />
-            </div>
-
-            <div class="flex flex-col gap-1">
-                <label class="text-xs text-gray-500">Kode produksi</label>
-                <select id="filter-kode"
-                        class="border border-gray-200 rounded-lg px-3 py-2 text-sm
-                               focus:outline-none focus:ring-2 focus:ring-indigo-300 min-w-[140px]">
-                    <option value="">Semua</option>
-                </select>
-            </div>
-
-            <div class="flex flex-col gap-1">
-                <label class="text-xs text-gray-500">Mesin</label>
-                <select id="filter-mesin"
-                        class="border border-gray-200 rounded-lg px-3 py-2 text-sm
-                               focus:outline-none focus:ring-2 focus:ring-indigo-300 min-w-[140px]">
-                    <option value="">Semua</option>
-                </select>
-            </div>
-
-            <button id="btn-filter"
-                    class="mt-4 border border-gray-200 hover:bg-gray-50 text-gray-600
-                           font-medium px-4 py-2 rounded-lg text-sm transition">
-                Terapkan
+            <button id="btn-filter" class="mt-4 border border-gray-200 hover:bg-gray-50 text-gray-600 font-medium px-4 py-2 rounded-lg text-sm transition">
+                Filter
             </button>
 
-            <button id="btn-reset"
-                    class="mt-4 border border-gray-200 hover:bg-gray-50 text-gray-600
-                           font-medium px-4 py-2 rounded-lg text-sm transition">
+            <button id="btn-reset" class="mt-4 border border-gray-200 hover:bg-gray-50 text-gray-600 font-medium px-4 py-2 rounded-lg text-sm transition">
                 Reset
             </button>
 
@@ -107,13 +67,22 @@
                     class="mt-4 border border-gray-200 hover:bg-gray-50 text-gray-600
                            font-medium px-4 py-2 ml-auto bg-emerald-600 hover:bg-emerald-700 font-medium
                            px-4 py-2 rounded-lg text-sm transition flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                </svg>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
                 Export Excel
             </button>
 
+           <a href="{{ route('costing.input') }}" id="btn-export"
+                    class="mt-4 border border-gray-200 hover:bg-gray-50 text-gray-600
+                           font-medium px-4 py-2 ml-auto bg-emerald-600 hover:bg-emerald-700 font-medium
+                           px-4 py-2 rounded-lg text-sm transition flex items-center gap-2">
+                    <svg fill="#000000" width="15px" height="15px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.238 1l-.353.36-8.969 9.095-.03.045c-.061.099-.27.45-.583 1.088-.314.638-.7 1.51-1.012 2.492L1 15l.92-.291a18.163 18.163 0 0 0 2.492-1.012c.638-.314.987-.52 1.088-.584l.045-.029L15 3.762zM12 9v1h3V9zm-8.11 1.89l1.22 1.22-.178.175c.007-.005-.379.227-.961.514-.214.105-.536.222-.834.338l-.274-.274c.116-.298.233-.62.338-.834.287-.582.518-.966.514-.96zM10 11v1h5v-1zm-2 2v1h7v-1z" fill="gray" font-family="Ubuntu" font-size="15" font-weight="400" letter-spacing="0" style="line-height:125%;-inkscape-font-specification:Ubuntu;text-align:center" text-anchor="middle" word-spacing="0"/>
+                    </svg>
+                Input
+            </a>
         </div>
     </div>
 

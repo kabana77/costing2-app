@@ -208,7 +208,7 @@
         </div>
 
         {{-- tombol submit --}}
-        <div class="flex justify-center px-1 pt-1 sm:px-0">
+        <div class="flex justify-center px-5 pt-5 sm:px-0">
             <button id="btn-submit" type="button"
                     class="flex w-full max-w-xl items-center justify-center gap-2.5 rounded-2xl border border-indigo-500/20 bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-3.5 text-base font-semibold text-dark shadow-[0_12px_30px_-12px_rgba(79,70,229,0.65)] transition hover:translate-y-[-1px] hover:from-indigo-700 hover:to-violet-700 disabled:cursor-not-allowed disabled:opacity-80 sm:w-auto sm:min-w-[240px] sm:px-6 mb-4">
                 <svg id="btn-icon-calc" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -222,10 +222,22 @@
                 </svg>
                 <span id="btn-label" class="text-content">Hitung &amp; Simpan</span>
             </button>
-            
+        </div>
+        <!-- <div class="flex justify-center px-5 pt-5 sm:px-0">
+            <button id="btn-submit" type="button"
+                    class="mt-4 border border-gray-800 hover:bg-gray-500 text-gray-800
+                           font-medium px-4 py-2 ml-auto bg-emerald-600 hover:bg-emerald-700 font-medium
+                           px-4 py-2 rounded-lg text-sm transition flex items-center gap-2 mb-4">
+                    <svg id="btn-icon-calc" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 11h.01M12 11h.01M15 11h.01
+                            M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                <span id="btn-label" class="text-content">Hitung &amp; Simpan</span>
+            </button> -->
         </div>
 
-        <div id="card-hasil" class="hidden rounded-lg border border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+        <div id="card-hasil" class="hidden rounded-lg ">
             <h2 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">Hasil Kalkulasi</h2>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
                 <div class="rounded-xl border border-emerald-100 bg-white/80 p-4 text-center">
